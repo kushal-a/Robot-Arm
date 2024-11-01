@@ -1,0 +1,17 @@
+<launch>
+  <param name="robot_description"
+    command="$(find xacro)/xacro --inorder '$(find jlr23)/urdf/jlr23.urdf'" />
+
+  <!-- send fake joint values -->
+  <arg name="use_gui" default="True"/>
+
+  <node pkg="joint_state_publisher" type="joint_state_publisher" name="joint_state_publisher" output="screen" unless="$(arg use_gui)" />
+  <node pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" name="joint_state_publisher_gui" output="screen" if="$(arg use_gui)" />
+
+  <!-- Combine joint values -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+
+  <!-- Show in Rviz   -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find jlr23)/config/robot_rviz.rviz"/>
+
+</launch>

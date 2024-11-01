@@ -1,0 +1,618 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="jlr23">
+
+  <gazebo>
+    <plugin filename="libgazebo_ros_control.so" name="gazebo_ros_control">
+      <robotNamespace>/jlr23</robotNamespace>
+      <robotSimType>gazebo_ros_control/DefaultRobotHWSim</robotSimType>
+    </plugin>
+  </gazebo>
+
+  <!-- <xacro:include filename="$(find jlr23)/models/camera/model.sdf" /> -->
+
+  <link
+    name="base_link">
+    <inertial>
+      <origin
+        xyz="-0.276235103486061 0.13987765838459 0.723966030427797"
+        rpy="0 0 0" />
+      <mass
+        value="491.30303564012" />
+      <inertia
+        ixx="141.226771631241"
+        ixy="-0.667901992896637"
+        ixz="-0.720844336128032"
+        iyy="170.264829374167"
+        iyz="3.2923047777961"
+        izz="51.5801583509923" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jlr23/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jlr23/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="link1">
+    <inertial>
+      <origin
+        xyz="-0.0234702346892053 0.0523284636391684 -4.07765740435995E-06"
+        rpy="0 0 0" />
+      <mass
+        value="2.26887356420331" />
+      <inertia
+        ixx="0.00332949768014992"
+        ixy="-1.33460787180598E-05"
+        ixz="-1.31036776944501E-09"
+        iyy="0.00376744252140244"
+        iyz="-2.94534619005552E-08"
+        izz="0.00364032799329192" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jlr23/meshes/link1.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jlr23/meshes/link1.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="prismatic"
+    type="prismatic">
+    <origin
+      xyz="0 0 0.6639"
+      rpy="1.5708 0 1.5708" />
+    <parent
+      link="base_link" />
+    <child
+      link="link1" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="0.71"
+      effort="80.0"
+      velocity="1" />
+  </joint>
+  <transmission name="prismatic_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="prismatic">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="prismatic_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <link
+    name="link2">
+    <inertial>
+      <origin
+        xyz="-0.00952573489970504 -0.0621548653419655 0.165888482719174"
+        rpy="0 0 0" />
+      <mass
+        value="0.952159414502832" />
+      <inertia
+        ixx="0.00670399131077116"
+        ixy="-6.25778082192579E-06"
+        ixz="0.000363422770513685"
+        iyy="0.00660759354726683"
+        iyz="0.000109702511506716"
+        izz="0.000387979484008933" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jlr23/meshes/link2.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.776470588235294 0.756862745098039 0.737254901960784 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jlr23/meshes/link2.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="r1"
+    type="revolute">
+    <origin
+      xyz="-0.26795 0.046 0"
+      rpy="3.1416 -0.057288 3.1416" />
+    <parent
+      link="link1" />
+    <child
+      link="link2" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="1.9"
+      upper="6.6"
+      effort="1.2"
+      velocity="1" />
+  </joint>
+  <transmission name="tran1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="r1">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor1">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <link
+    name="link3">
+    <inertial>
+      <origin
+        xyz="7.67743407226185E-05 -0.0637848235215971 -0.00054897328058251"
+        rpy="0 0 0" />
+      <mass
+        value="0.152174540214271" />
+      <inertia
+        ixx="5.67209216682091E-05"
+        ixy="-8.9658649693289E-10"
+        ixz="3.36534301601174E-08"
+        iyy="3.68682661636993E-05"
+        iyz="5.55240866258681E-07"
+        izz="6.48360118144108E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jlr23/meshes/link3.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.776470588235294 0.756862745098039 0.737254901960784 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jlr23/meshes/link3.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="r2"
+    type="revolute">
+    <origin
+      xyz="-0.020927 -0.082 0.3649"
+      rpy="-3.1416 0.057288 -3.1416" />
+    <parent
+      link="link2" />
+    <child
+      link="link3" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-31400"
+      upper="31400"
+      effort="1.2"
+      velocity="1" />
+  </joint>
+  <transmission name="tran2">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="r2">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor2">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <link
+    name="link4">
+    <inertial>
+      <origin
+        xyz="-0.000241392367935522 -0.154636126684681 -2.06155221615933E-07"
+        rpy="0 0 0" />
+      <mass
+        value="0.706883096655562" />
+      <inertia
+        ixx="0.00378010044246772"
+        ixy="2.76448686177997E-05"
+        ixz="-9.53585102281354E-08"
+        iyy="0.00029860889627663"
+        iyz="2.34892309179001E-08"
+        izz="0.00389224550852458" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jlr23/meshes/link4.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.776470588235294 0.756862745098039 0.737254901960784 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jlr23/meshes/link4.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="r3"
+    type="revolute">
+    <origin
+      xyz="0 -0.09225 0.019"
+      rpy="-1.5708 0 1.5699" />
+    <parent
+      link="link3" />
+    <child
+      link="link4" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-31400"
+      upper="31400"
+      effort="1.2"
+      velocity="1" />
+  </joint>
+  <transmission name="tran3">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="r3">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor3">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <link
+    name="link5">
+    <inertial>
+      <origin
+        xyz="0.0132264359298863 -0.0246084700377679 0.000105386524251461"
+        rpy="0 0 0" />
+      <mass
+        value="0.11085597052734" />
+      <inertia
+        ixx="2.92160565952064E-05"
+        ixy="5.96786821620956E-07"
+        ixz="1.01394933547362E-08"
+        iyy="5.38711653004163E-05"
+        iyz="3.45985142174298E-08"
+        izz="4.45769877356211E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jlr23/meshes/link5.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.776470588235294 0.756862745098039 0.737254901960784 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jlr23/meshes/link5.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="r4"
+    type="revolute">
+    <origin
+      xyz="0.025 -0.29 2.1258E-05"
+      rpy="0.00085032 0 -1.5708" />
+    <parent
+      link="link4" />
+    <child
+      link="link5" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="-1.82"
+      upper="1.82"
+      effort="1.2"
+      velocity="1" />
+  </joint>
+  <transmission name="tran4">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="r4">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor4">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <link
+    name="link6">
+    <inertial>
+      <origin
+        xyz="0.0170077137011535 0.046825459293444 -3.61694613029151E-05"
+        rpy="0 0 0" />
+      <mass
+        value="0.450464199664897" />
+      <inertia
+        ixx="0.000401378755677723"
+        ixy="2.16385781512959E-06"
+        ixz="1.70188751918973E-07"
+        iyy="0.000797535350991793"
+        iyz="8.45193392641359E-08"
+        izz="0.000652564128603054" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jlr23/meshes/link6.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="0.776470588235294 0.756862745098039 0.737254901960784 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://jlr23/meshes/link6.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="r5"
+    type="revolute">
+    <origin
+      xyz="0.04425 -0.025 0"
+      rpy="0 -0.00085032 -1.5708" />
+    <parent
+      link="link5" />
+    <child
+      link="link6" />
+    <axis
+      xyz="0 -1 0" />
+    <limit
+      lower="-31400"
+      upper="31400"
+      effort="1.2"
+      velocity="1" />
+  </joint>
+  <transmission name="tran5">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="r5">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor5">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+
+  <link name="camera_link">
+    <inertial>
+      <mass value="0.000312342"/>
+      <inertia ixx="2.59945e-07" ixy="0" ixz="0" iyy="2.1907e-07" iyz="0" izz="2.46955e-07"/>
+      <origin rpy="0 -0 0" xyz="0 0 0"/>
+    </inertial>
+    <visual>
+      <origin rpy="0 -0 0" xyz="0 0 0"/>
+      <geometry>
+        <box size="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="Gazebo/Grey">
+        <script>
+          <uri>file://media/materials/scripts/gazebo.material</uri>
+          <name>Gazebo/Grey</name>
+        </script>
+        <shader type="pixel"/>
+      </material>
+      <transparency>0</transparency>
+      <cast_shadows>1</cast_shadows>
+    </visual>
+  </link>
+  <joint name="link_0_JOINT_0" type="fixed">
+    <parent link="camera_link"/>
+    <child link="camera_link1"/>
+    <origin rpy="0 -0 0" xyz="0 0 0"/>
+  </joint>
+  <link name="camera_link1">
+    <inertial>
+      <mass value="0.000312342"/>
+      <inertia ixx="2.59945e-07" ixy="0" ixz="0" iyy="2.1907e-07" iyz="0" izz="2.46955e-07"/>
+      <origin rpy="0 -0 0" xyz="0 0.025 0"/>
+    </inertial>
+    <origin rpy="0 -0 0" xyz="-0 0.025 0"/>
+    <visual>
+      <origin rpy="0 -0 0" xyz="0 0.025 0"/>
+      <geometry>
+        <box size="0.01 0.01 0.01"/>
+      </geometry>
+      <material name="Gazebo/Grey">
+        <script>
+          <uri>file://media/materials/scripts/gazebo.material</uri>
+          <name>Gazebo/Grey</name>
+        </script>
+        <shader type="pixel"/>
+      </material>
+      <transparency>0</transparency>
+      <cast_shadows>1</cast_shadows>
+    </visual>
+  </link>
+  <kinematic>0</kinematic>
+  <allow_auto_disable>1</allow_auto_disable>
+  <!-- <material name="Gazebo/Grey"> -->
+  <!--   <color rgba=".3 .3 .3 1.0"/> -->
+  <!-- </material> -->
+  <material name="Gazebo/Grey">
+    <color rgba=".3 .3 .3 1.0"/>
+  </material>
+
+<gazebo reference='camera_link'>
+  <sensor name='camera' type='camera'>
+        <camera name="head">
+            <horizontal_fov>1.3962634</horizontal_fov>
+            <image>
+                <width>800</width>
+                <height>800</height>
+                <format>R8G8B8</format>
+            </image>
+            <clip>
+                <near>0.02</near>
+                <far>300</far>
+            </clip>
+        </camera>
+        <always_on>1</always_on>
+        <update_rate>30</update_rate>
+        <visualize>1</visualize>
+        <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+            <alwaysOn>true</alwaysOn>
+            <updateRate>0.0</updateRate>
+            <cameraName>jlr/camera</cameraName>
+            <imageTopicName>image_raw</imageTopicName>
+            <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+            <frameName>camera_link</frameName>
+            <hackBaseline>0.07</hackBaseline>
+            <distortionK1>0.0</distortionK1>
+            <distortionK2>0.0</distortionK2>
+            <distortionK3>0.0</distortionK3>
+            <distortionT1>0.0</distortionT1>
+            <distortionT2>0.0</distortionT2>
+        </plugin>
+    </sensor>
+</gazebo>
+
+<gazebo reference='camera_link1'>
+  <sensor name='camera1' type='camera'>
+        <camera name="head1">
+            <horizontal_fov>1.3962634</horizontal_fov>
+            <image>
+                <width>800</width>
+                <height>800</height>
+                <format>R8G8B8</format>
+            </image>
+            <clip>
+                <near>0.02</near>
+                <far>300</far>
+            </clip>
+        </camera>
+        <always_on>1</always_on>
+        <update_rate>30</update_rate>
+        <visualize>1</visualize>
+        <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+            <alwaysOn>true</alwaysOn>
+            <updateRate>0.0</updateRate>
+            <cameraName>jlr/camera1</cameraName>
+            <imageTopicName>image_raw</imageTopicName>
+            <cameraInfoTopicName>camera_info</cameraInfoTopicName>
+            <frameName>camera_link1</frameName>
+            <hackBaseline>0.07</hackBaseline>
+            <distortionK1>0.0</distortionK1>
+            <distortionK2>0.0</distortionK2>
+            <distortionK3>0.0</distortionK3>
+            <distortionT1>0.0</distortionT1>
+            <distortionT2>0.0</distortionT2>
+        </plugin>
+    </sensor>
+</gazebo>
+
+  <joint
+    name="camera_joint"
+    type="fixed">
+    <origin
+      xyz="0.015 0.1 -0.0125"
+      rpy="1.5708 0 1.5708" />
+    <parent
+      link="link6" />
+    <child
+      link="camera_link" />
+    <axis
+      xyz="0 1 0" />
+    <limit
+      lower="0"
+      upper="0.71"
+      effort="1.2"
+      velocity="1"/>
+</joint>
+
+</robot>

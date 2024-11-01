@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch>
+
+  <arg name="gui" default="true"/>
+
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+      <env name="GAZEBO_MODEL_PATH" value="$(find bot_description)/meshes:$(find bot_description)/urdf"/>
+    <env name="GAZEBO_MODEL_DATABASE_URI" value="/"/>
+    <env name="GAZEBO_RESOURCE_PATH" value="$(find gazebo_envs)/media/materials"/>
+    <arg name="world_name" value="$(find gazebo_envs)/worlds/mars_easy.world"/>
+    <arg name="verbose" value="true" />
+    <arg name="gui" value="$(arg gui)"/>
+    <!-- more default parameters can be changed here -->
+  </include>
+
+  <param name="robot_description" command="$(find xacro)/xacro '$(find bot_description)/urdf/rover.urdf'"/>
+
+  <!-- send fake joint values -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="False"/>
+  </node>
+
+  <!-- Combine joint values -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"/>
+
+
+
+    <arg name="x" default="0"/>
+    <arg name="y" default="0"/>
+    <arg name="z" default="0.5"/>
+
+    <node name="rover_spawn" pkg="gazebo_ros" type="spawn_model" output="screen"
+          args="-urdf -param robot_description -model rover -x $(arg x) -y $(arg y) -z $(arg z)" /> 
+    <!-- <node name="rover_spawn" pkg="gazebo_ros" type="spawn_model" output="screen" -->
+    <!--       args="-file $(find bot_description)/urdf/rover.sdf -sdf -model rover -x $(arg x) -y $(arg y) -z $(arg z)" /> --> 
+    
+    <!-- <node pkg="pointcloud_to_laserscan" type="pointcloud_to_laserscan_node" name="pointcloud_to_laserscan">
+      <remap from="cloud_in" to="mrt/camera1/depth/points"/>
+      <remap from="scan" to="mrt/camera1/scan" />
+      <rosparam>
+        target_frame: camera_link
+        transform_tolerance: 0.01
+        min_height: 0.0
+        max_height: 3.0
+        
+        angle_min: -1.5708
+        angle_max: 1.5708
+        angle_increment: 0.0087
+        scan_time: 0.3333
+        range_min: 0.45
+        range_max: 7.0
+        use_inf: true
+        
+        #concurrency_level affects number of pc queued for processing and the number of threadsused
+        # 0: Detect number of cores
+        # 1: Single threaded
+        # 2: inf : Parallelism level
+        concurrency_level: 0
+      </rosparam>
+    </node> -->
+</launch>

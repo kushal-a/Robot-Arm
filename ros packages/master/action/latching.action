@@ -1,0 +1,10 @@
+# goal definition
+
+Bool initial_goal
+---
+# result definition
+Float32MultiArray new_goal
+Bool can_see_charging_port
+---
+# feedback
+

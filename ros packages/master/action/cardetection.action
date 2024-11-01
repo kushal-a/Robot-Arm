@@ -1,0 +1,8 @@
+# goal definition
+Float32MultiArray car_goal
+---
+# result definition
+bool success
+---
+# feedback
+
