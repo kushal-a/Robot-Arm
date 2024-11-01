@@ -1,0 +1,28 @@
+edge=csvread('edges.csv'); % reading csv file into an array
+node=csvread('nodes.csv');% reading csv file into an array
+%5th row of node will contain total cost and 6th row will be parent node
+open=[1]; % an array two contain list of open nodes
+node(:,5)=[0,99,99,99,99,99,99,99,99,99,99,99]'; %iitializing cost with 99 as a very large number
+ while(size(open)>0)
+     k=open(1);
+     for i=1:1:18 % serching for a connected node
+         if(edge(i,2)==k)
+             if(node(edge(i,1),5)>(node(k,5)+edge(i,3))) % checking for a lower cost path
+                 open=[open,edge(i,1)]; % adding the node to open 
+                 node(edge(i,1),5)=node(k,5)+edge(i,3); % reassinging the lower cost path found
+                 node(edge(i,1),6)=k; % changing parent node
+             end
+         end
+     end
+     open(1)=[]; % deleting present node which has been explored
+ end
+ k=12; 
+ path=[12]; % to store the path
+ while(k~=1)
+    path=[path,node(k,6)]; %seraching for a path
+    k=node(k,6);
+ end
+ csvwrite('path.csv',path); % genarting a csv file 
+ 
+ 
+ 
